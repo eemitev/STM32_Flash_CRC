@@ -127,6 +127,15 @@ SECTIONS
     PROVIDE_HIDDEN (__fini_array_end = .);
     . = ALIGN(4);
   } >FLASH
+  
+  .image_crc :
+  {
+    . = ALIGN(4);
+    PROVIDE (__image_crc_addr = .); 
+    . = . + 4;
+	KEEP(*(.image_crc))
+    . = ALIGN(4);
+  } >FLASH
 
   /* Used by the startup to initialize data */
   _sidata = LOADADDR(.data);

@@ -57,6 +57,18 @@ static void MX_CRC_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+// Not intuitive but explained here - https://sourceware.org/binutils/docs/ld/Source-Code-Reference.html
+extern char __image_crc_addr[];
+
+extern char __fini_array_end[];
+
+uint32_t GetStoredCRC(){
+
+	uint32_t *crc = &__image_crc_addr;
+	uint32_t *fini = & __fini_array_end;
+
+	return *crc;
+}
 /* USER CODE END 0 */
 
 /**
@@ -90,6 +102,7 @@ int main(void)
   MX_CRC_Init();
   /* USER CODE BEGIN 2 */
 
+  uint32_t crc = GetStoredCRC();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -97,6 +110,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	  HAL_Delay(500);
+	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
     /* USER CODE BEGIN 3 */
   }
