@@ -60,14 +60,11 @@ static void MX_CRC_Init(void);
 // Not intuitive but explained here - https://sourceware.org/binutils/docs/ld/Source-Code-Reference.html
 extern char __image_crc_addr[];
 
-extern char __fini_array_end[];
-
 uint32_t GetStoredCRC(){
 
-	uint32_t *crc = &__image_crc_addr;
-	uint32_t *fini = & __fini_array_end;
+	uint32_t *flash_crc = &__image_crc_addr;
 
-	return *crc;
+	return *flash_crc;
 }
 /* USER CODE END 0 */
 
@@ -103,6 +100,11 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   uint32_t crc = GetStoredCRC();
+  uint32_t default_crc = 0x5CA1AB1E;
+
+  if (default_crc == *flash_crc) {
+
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */

@@ -150,8 +150,14 @@ SECTIONS
   {
     . = ALIGN(4);
     PROVIDE (__image_crc_addr = .); 
-    . = . + 4;
-	KEEP(*(.image_crc))
+    /* QUAD ends up being 64-bit because reasons. I want 32-bit */
+        SHORT(0xAB1E);
+    
+    SHORT(0x5CA1);
+    /* QUAD(0x5CA1AB1E); */
+    /* LONG(0xAABBCC); */
+    
+	KEEP(*(.image_crc)) 
     . = ALIGN(4);
   } >FLASH
 
