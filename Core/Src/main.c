@@ -57,8 +57,14 @@ static void MX_CRC_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-// Not intuitive but explained here - https://sourceware.org/binutils/docs/ld/Source-Code-Reference.html
-extern char __image_crc_addr[];
+// There is a good explanation at https://sourceware.org/binutils/docs/ld/Source-Code-Reference.html
+// __image_crc_addr is a linker script(.ld) variable that stores a memory location
+// The variable is set by the linker during the linking process
+// By "set" we mean that it exists in the symbol table but no memory is allocated for it
+// The variable's value is the "address" it points to in the symbol table
+// Our goal is to read the value of the linker script variable
+
+extern char __image_crc_addr;
 
 uint32_t GetStoredCRC(){
 
@@ -102,9 +108,9 @@ int main(void)
   uint32_t crc = GetStoredCRC();
   uint32_t default_crc = 0x5CA1AB1E;
 
-  if (default_crc == *flash_crc) {
-
-  }
+//  if (default_crc == *crc) {
+//
+//  }
   /* USER CODE END 2 */
 
   /* Infinite loop */

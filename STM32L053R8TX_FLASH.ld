@@ -149,12 +149,20 @@ SECTIONS
   .image_crc :
   {
     . = ALIGN(4);
+    /* Store the current location counter, denoted by . , in __image_crc_addr         */
+    /* In our C code we can use the linker script variable, and use it as a pointer   */
+    /* and verify that the placeholder valus is what we expect it to be               */
     PROVIDE (__image_crc_addr = .); 
-    /* QUAD ends up being 64-bit because reasons. I want 32-bit */
-        SHORT(0xAB1E);
     
-    SHORT(0x5CA1);
-    /* QUAD(0x5CA1AB1E); */
+    
+    /* ARM is little-endian architecture so storing the 2nd bit first */
+    SHORT(0xC0DE);      /* Store second 16 bits of test value */
+    
+    SHORT(0xDEAD);      /* Store first 16 bits of test value */
+    
+    
+    /* QUAD(0x5CA1AB1E); */      /* QUAD size ends up 64-bit. We would like to use a 32-bit CRC value */
+    
     /* LONG(0xAABBCC); */
     
 	KEEP(*(.image_crc)) 
