@@ -12,7 +12,7 @@ This project provides a solution for appending a Cyclic Redundancy Check (CRC) t
 
 ## Why This Project?
 
-While researching CRC implementations for STM32 projects, I noticed that most examples placed the CRC at a fixed address. This approach can be limiting, especially when sharing an image with multiple processors from the same family with varying flash sizes. To address this gap, I developed this solution that appends the CRC at the end of the binary file, regardless of its size.
+While researching CRC implementations for STM32 projects, I noticed that most examples placed the CRC at a fixed address. If you want to program faster, and use a smaller file I developed this solution that appends the CRC at the end of the binary file, regardless of its size.
 
 ## Getting Started
 
