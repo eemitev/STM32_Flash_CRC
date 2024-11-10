@@ -1,4 +1,4 @@
-# STM32 - Dynamic CRC Appender for Binary Files
+# STM32 - Dynamic CRC Appender for Flash Images
 
 ## Overview
 
